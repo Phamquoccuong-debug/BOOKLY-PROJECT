@@ -1,9 +1,10 @@
 import { useState } from 'react'
+import { useCart } from '../../context/useCart'
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
-  const cartItemCount = 3
+  const { totalQuantity: cartItemCount } = useCart()
 
   const navLinks = [
     { label: 'Khám phá', href: '#discover' },
@@ -146,9 +147,9 @@ export function Header() {
 
             {/* Nút Giỏ hàng kèm Badge số lượng */}
             <a
-              href="#cart"
+              href="#/cart"
               className="relative p-2 text-[#25272B] hover:text-[#3457E5] rounded-full hover:bg-white/80 transition-colors focus:outline-hidden focus:ring-2 focus:ring-[#3457E5]/40"
-              aria-label={`Giỏ hàng với ${cartItemCount} sản phẩm`}
+              aria-label={`Giỏ hàng${cartItemCount > 0 ? ` với ${cartItemCount} sản phẩm` : ' (trống)'}`}
             >
               <svg
                 className="w-6 h-6"

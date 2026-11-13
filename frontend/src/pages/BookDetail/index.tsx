@@ -1,5 +1,6 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { SAMPLE_BOOKS } from '../Books/data/booksData'
+import { useCart } from '../../context/useCart'
 
 interface BookDetailProps {
   bookId: string
@@ -10,6 +11,16 @@ export function BookDetailPage({ bookId }: BookDetailProps) {
   const book = useMemo(() => {
     return SAMPLE_BOOKS.find((b) => b.id === bookId)
   }, [bookId])
+
+  const { addToCart } = useCart()
+  const [added, setAdded] = useState(false)
+
+  function handleAddToCart() {
+    if (!book) return
+    addToCart(book.id)
+    setAdded(true)
+    setTimeout(() => setAdded(false), 2000)
+  }
 
   // NOT FOUND STATE (Invalid or missing book ID)
   if (!book) {
@@ -226,26 +237,45 @@ export function BookDetailPage({ bookId }: BookDetailProps) {
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <button
                   type="button"
-                  disabled
-                  title="Tính năng mua hàng đang được phát triển / Cart feature coming soon"
-                  aria-label={`Thêm ${book.title} vào giỏ hàng (UI mẫu)`}
-                  className="flex-1 inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-[#3457E5] text-white text-base font-bold shadow-xs cursor-default opacity-95 transition-opacity"
+                  onClick={handleAddToCart}
+                  aria-label={`Thêm ${book.title} vào giỏ hàng`}
+                  className="flex-1 inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-[#3457E5] hover:bg-[#2844BC] text-white text-base font-bold shadow-xs cursor-pointer transition-colors"
                 >
-                  <svg
-                    className="w-5 h-5 shrink-0"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2Z" />
-                    <path d="M3 6h18" />
-                    <path d="M16 10a4 4 0 0 1-8 0" />
-                  </svg>
-                  <span>Thêm vào giỏ hàng • Add to Cart</span>
+                  {added ? (
+                    <>
+                      <svg
+                        className="w-5 h-5 shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      <span>Đã thêm vào giỏ! • Added to Cart!</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        className="w-5 h-5 shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-2Z" />
+                        <path d="M3 6h18" />
+                        <path d="M16 10a4 4 0 0 1-8 0" />
+                      </svg>
+                      <span>Thêm vào giỏ hàng • Add to Cart</span>
+                    </>
+                  )}
                 </button>
 
                 <a
