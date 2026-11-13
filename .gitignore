@@ -1,0 +1,22 @@
+# Node.js
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+
+# IDE
+.vscode/
+.idea/
+.agy/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
