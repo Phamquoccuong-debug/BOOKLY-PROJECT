@@ -10,7 +10,7 @@ interface NewArrivalBook {
 
 const NEW_ARRIVALS: NewArrivalBook[] = [
   {
-    id: 'arrival-project-hail-mary',
+    id: 'project-hail-mary',
     title: 'Project Hail Mary',
     author: 'Andy Weir',
     price: '$22.00',
@@ -19,7 +19,7 @@ const NEW_ARRIVALS: NewArrivalBook[] = [
     coverAccent: '#F5D66B',
   },
   {
-    id: 'arrival-the-creative-act',
+    id: 'the-creative-act',
     title: 'The Creative Act',
     author: 'Rick Rubin',
     price: '$24.00',
@@ -28,7 +28,7 @@ const NEW_ARRIVALS: NewArrivalBook[] = [
     coverAccent: '#F4775B',
   },
   {
-    id: 'arrival-educated',
+    id: 'educated',
     title: 'Educated',
     author: 'Tara Westover',
     price: '$20.00',
@@ -37,7 +37,7 @@ const NEW_ARRIVALS: NewArrivalBook[] = [
     coverAccent: '#FFF8EF',
   },
   {
-    id: 'arrival-designing-data-intensive',
+    id: 'designing-data-intensive-applications',
     title: 'Designing Data-Intensive Applications',
     author: 'Martin Kleppmann',
     price: '$42.00',
@@ -84,93 +84,102 @@ export function NewArrivals() {
 
         {/* 4-COLUMN BOOK GRID (2-column on tablet & mobile) */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {NEW_ARRIVALS.map((book) => (
-            <article
-              key={book.id}
-              className="group bg-[#FFFDF9] rounded-2xl border border-[#E8DFC9] p-4 sm:p-5 flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:border-[#3457E5]/35 hover:shadow-xs"
-            >
-              <div>
-                {/* Book Cover Container with standard 2:3 ratio */}
-                <div className="relative w-full aspect-[2/3] mb-4 rounded-xl overflow-hidden bg-[#FAF7F0] border border-[#E8DFC9]/70 flex flex-col justify-between p-3.5 sm:p-4 border-l-4 border-l-[#25272B]/20">
-                  {/* Top "NEW ARRIVAL" Label Badge */}
-                  <div className="flex items-start justify-between gap-1.5">
-                    <span className="inline-block text-[10px] font-extrabold tracking-wider uppercase px-2 py-0.5 rounded-md border bg-[#3457E5]/10 text-[#3457E5] border-[#3457E5]/30">
-                      {book.label}
-                    </span>
-                  </div>
-
-                  {/* Visual Book Cover Area (Placeholder representation with proper aspect ratio) */}
-                  <div className="my-auto space-y-1.5 py-2">
-                    <div
-                      className={`w-full h-20 sm:h-24 rounded-lg ${book.coverBg} p-2.5 flex flex-col justify-end border border-white/20`}
-                    >
-                      <span
-                        className="text-[10px] font-bold uppercase tracking-wider block"
-                        style={{ color: book.coverAccent }}
-                      >
-                        FIRST EDITION
-                      </span>
-                      <div className="w-5 h-0.5 bg-white/40 my-1" />
-                      <span className="text-[8px] opacity-75 italic">
-                        Aspect Ratio 2:3
+          {NEW_ARRIVALS.map((book) => {
+            const detailHref = `#/books/${book.id}`
+            return (
+              <article
+                key={book.id}
+                className="group bg-[#FFFDF9] rounded-2xl border border-[#E8DFC9] p-4 sm:p-5 flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:border-[#3457E5]/35 hover:shadow-xs"
+              >
+                <div>
+                  {/* Book Cover Container with standard 2:3 ratio (Clickable) */}
+                  <a
+                    href={detailHref}
+                    className="block relative w-full aspect-[2/3] mb-4 rounded-xl overflow-hidden bg-[#FAF7F0] border border-[#E8DFC9]/70 flex flex-col justify-between p-3.5 sm:p-4 border-l-4 border-l-[#25272B]/20 transition-transform group-hover:scale-[1.01]"
+                    aria-label={`View details for ${book.title}`}
+                  >
+                    {/* Top "NEW ARRIVAL" Label Badge */}
+                    <div className="flex items-start justify-between gap-1.5">
+                      <span className="inline-block text-[10px] font-extrabold tracking-wider uppercase px-2 py-0.5 rounded-md border bg-[#3457E5]/10 text-[#3457E5] border-[#3457E5]/30">
+                        {book.label}
                       </span>
                     </div>
 
-                    <h3 className="text-xs sm:text-sm font-bold text-[#25272B] leading-tight line-clamp-2 pt-1">
-                      {book.title}
+                    {/* Visual Book Cover Area */}
+                    <div className="my-auto space-y-1.5 py-2">
+                      <div
+                        className={`w-full h-20 sm:h-24 rounded-lg ${book.coverBg} p-2.5 flex flex-col justify-end border border-white/20`}
+                      >
+                        <span
+                          className="text-[10px] font-bold uppercase tracking-wider block"
+                          style={{ color: book.coverAccent }}
+                        >
+                          FIRST EDITION
+                        </span>
+                        <div className="w-5 h-0.5 bg-white/40 my-1" />
+                        <span className="text-[8px] opacity-75 italic">
+                          Aspect Ratio 2:3
+                        </span>
+                      </div>
+
+                      <h3 className="text-xs sm:text-sm font-bold text-[#25272B] leading-tight line-clamp-2 pt-1 group-hover:text-[#3457E5] transition-colors">
+                        {book.title}
+                      </h3>
+                    </div>
+
+                    {/* Explicit Placeholder Notice */}
+                    <div className="pt-1.5 border-t border-[#E8DFC9]/70 flex items-center justify-between text-[8px] sm:text-[9px] text-[#25272B]/50 font-mono">
+                      <span>COVER PLACEHOLDER</span>
+                      <span>200×300</span>
+                    </div>
+                  </a>
+
+                  {/* Book Information */}
+                  <div className="space-y-1">
+                    <h3 className="text-sm sm:text-base font-extrabold text-[#25272B] tracking-tight leading-snug line-clamp-1">
+                      <a
+                        href={detailHref}
+                        className="hover:text-[#3457E5] hover:underline transition-colors"
+                      >
+                        {book.title}
+                      </a>
                     </h3>
-                  </div>
-
-                  {/* Explicit Placeholder Notice */}
-                  <div className="pt-1.5 border-t border-[#E8DFC9]/70 flex items-center justify-between text-[8px] sm:text-[9px] text-[#25272B]/50 font-mono">
-                    <span>COVER PLACEHOLDER</span>
-                    <span>200×300</span>
+                    <p className="text-xs text-[#25272B]/70 font-medium">
+                      {book.author}
+                    </p>
                   </div>
                 </div>
 
-                {/* Book Information */}
-                <div className="space-y-1">
-                  <h3 className="text-sm sm:text-base font-extrabold text-[#25272B] tracking-tight leading-snug line-clamp-1 group-hover:text-[#3457E5] transition-colors">
-                    {book.title}
-                  </h3>
-                  <p className="text-xs text-[#25272B]/70 font-medium">
-                    {book.author}
-                  </p>
-                </div>
-              </div>
+                {/* Price & Action Button */}
+                <div className="pt-4 mt-3 border-t border-[#E8DFC9]/60 flex items-center justify-between gap-2">
+                  <span className="text-base sm:text-lg font-black text-[#25272B]">
+                    {book.price}
+                  </span>
 
-              {/* Price & Non-functional UI Action Button */}
-              <div className="pt-4 mt-3 border-t border-[#E8DFC9]/60 flex items-center justify-between gap-2">
-                <span className="text-base sm:text-lg font-black text-[#25272B]">
-                  {book.price}
-                </span>
-
-                <button
-                  type="button"
-                  title="Tính năng xem chi tiết đang phát triển / Details coming soon"
-                  aria-label={`Xem chi tiết ${book.title} (UI mẫu)`}
-                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-[#E8DFC9] bg-white hover:bg-slate-50 text-[#25272B] text-xs font-semibold transition-colors cursor-default"
-                >
-                  <span>Chi tiết</span>
-                  <svg
-                    className="w-3.5 h-3.5 text-[#3457E5]"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
+                  <a
+                    href={detailHref}
+                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-[#E8DFC9] bg-white hover:border-[#3457E5] hover:text-[#3457E5] text-[#25272B] text-xs font-semibold transition-colors"
                   >
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </button>
-              </div>
-            </article>
-          ))}
+                    <span>Chi tiết</span>
+                    <svg
+                      className="w-3.5 h-3.5 text-[#3457E5]"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </a>
+                </div>
+              </article>
+            )
+          })}
         </div>
       </div>
     </section>
   )
 }
-
