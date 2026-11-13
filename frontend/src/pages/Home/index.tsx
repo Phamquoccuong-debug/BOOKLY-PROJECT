@@ -1,6 +1,7 @@
 import { HeroSection } from './components/HeroSection'
 import { CategorySection } from './components/CategorySection'
 import { FeaturedBooks } from './components/FeaturedBooks'
+import { EditorialBanner } from './components/EditorialBanner'
 
 export function Home() {
   return (
@@ -8,6 +9,7 @@ export function Home() {
       <HeroSection />
       <CategorySection />
       <FeaturedBooks />
+      <EditorialBanner />
     </main>
   )
 }
